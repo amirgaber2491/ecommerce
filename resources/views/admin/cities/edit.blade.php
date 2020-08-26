@@ -19,59 +19,38 @@
                     {{ Session::get('success') }}
                 </div>
             @endif
-            <h3>{{ trans('admin.country.add') }}</h3>
-            {!! Form::model($country,['method'=>'PATCH', 'action'=>['CountryController@update', $country->id], 'files'=>true]) !!}
-                <div class="form-group">
-                    {!! Form::label(trans('admin.country.name_ar')) !!}
-                    {!! Form::text('countryName_ar', null, ['class'=>'form-control']) !!}
-                </div>
-                @error('countryName_ar')
-                    <div class="alert alert-danger">
-                        {{ $message }}
-                    </div>
-                @enderror
-                <div class="form-group">
-                    {!! Form::label(trans('admin.country.name_en')) !!}
-                    {!! Form::text('countryName_en', null, ['class'=>'form-control']) !!}
-                </div>
-                @error('countryName_en')
-                <div class="alert alert-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-                <div class="form-group">
-                    {!! Form::label(trans('admin.country.choseCode')) !!}
-                    {!! Form::text('code', null, ['class'=>'form-control']) !!}
-                </div>
-                @error('code')
-                <div class="alert alert-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-                <div class="form-group">
-                    {!! Form::label(trans('admin.country.mob')) !!}
-                    {!! Form::text('mob', null, ['class'=>'form-control']) !!}
-                </div>
-                @error('mob')
-                <div class="alert alert-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-                <div class="form-group">
-                    {!! Form::label(trans('admin.country.logo')) !!}
-                    <br>
-                    <img src="{{ checkImage($country->logo, 'imagesCountries') }}" alt="" width="100px">
-                    <br>
-                    {!! Form::file('logo',  ['class'=>'form-control']) !!}
-                </div>
-                @error('logo')
-                <div class="alert alert-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-                <div class="form-group">
-                    {!! Form::submit(trans('admin.save'), ['class'=>'btn btn-success']) !!}
-                </div>
+            <h3>{{ trans('admin.city.edit') }} {{ $city['cityName_' . LaravelLocalization::getCurrentLocale()] }}</h3>
+            {!! Form::model($city, ['method'=>'PATCH', 'action'=>['CityController@update', $city->id]]) !!}
+            <div class="form-group">
+                {!! Form::label(trans('admin.city.name_ar')) !!}
+                {!! Form::text('cityName_ar', null, ['class'=>'form-control']) !!}
+            </div>
+            @error('cityName_ar')
+            <div class="alert alert-danger">
+                {{ $message }}
+            </div>
+            @enderror
+            <div class="form-group">
+                {!! Form::label(trans('admin.city.name_en')) !!}
+                {!! Form::text('cityName_en', null, ['class'=>'form-control']) !!}
+            </div>
+            @error('cityName_en')
+            <div class="alert alert-danger">
+                {{ $message }}
+            </div>
+            @enderror
+            <div class="form-group">
+                {!! Form::label(trans('admin.city.choseCountry')) !!}
+                {!! Form::select('country_id', $countries , null, ['class'=>'form-control', 'placeholder'=>'--------']) !!}
+            </div>
+            @error('country_id')
+            <div class="alert alert-danger">
+                {{ $message }}
+            </div>
+            @enderror
+            <div class="form-group">
+                {!! Form::submit(trans('admin.save'), ['class'=>'btn btn-success']) !!}
+            </div>
             {!! Form::close() !!}
 
         </section>

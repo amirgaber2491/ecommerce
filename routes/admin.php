@@ -39,6 +39,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
 //            Route::delete('delete/multi/departments', 'DepartmentController@deleteMulti');
             Route::resource('triad', 'TriadController');
             Route::delete('delete/multi/triads', 'TriadController@deleteMulti');
+            Route::resource('manufact', 'ManufactController');
+            Route::delete('delete/multi/manufacts', 'ManufactController@deleteMulti');
 
 
 

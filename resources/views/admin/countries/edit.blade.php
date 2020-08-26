@@ -19,43 +19,59 @@
                     {{ Session::get('success') }}
                 </div>
             @endif
-            <h3>{{ $admin->name }} : {{ trans('admin.edit.admin') }}</h3>
-            {!! Form::model($admin, ['method'=>'PATCH', 'action'=>['AdminController@update', $admin->id]]) !!}
-            <div class="gorm-group">
-                {!! Form::label(trans('admin.admin.name')) !!}
-                {!! Form::text('name', null, ['class'=>'form-control']) !!}
+            <h3>{{ trans('admin.country.edit')}} {{ $country['countryName_' . LaravelLocalization::getCurrentLocale()]  }}</h3>
+            {!! Form::model($country, ['method'=>'POST', 'action'=>['CountryController@update', $country->id], 'files'=>true]) !!}
+            <div class="form-group">
+                {!! Form::label(trans('admin.country.name_ar')) !!}
+                {!! Form::text('countryName_ar', null, ['class'=>'form-control']) !!}
             </div>
-            @error('name')
+            @error('countryName_ar')
             <div class="alert alert-danger">
                 {{ $message }}
             </div>
             @enderror
-            <div class="gorm-group">
-                {!! Form::label(trans('admin.email')) !!}
-                {!! Form::email('email', null, ['class'=>'form-control']) !!}
+            <div class="form-group">
+                {!! Form::label(trans('admin.country.name_en')) !!}
+                {!! Form::text('countryName_en', null, ['class'=>'form-control']) !!}
             </div>
-            @error('email')
+            @error('countryName_en')
             <div class="alert alert-danger">
                 {{ $message }}
             </div>
             @enderror
-            <div class="gorm-group">
-                {!! Form::label(trans('admin.password')) !!}
-                {!! Form::password('password', ['class'=>'form-control']) !!}
+            <div class="form-group">
+                {!! Form::label(trans('admin.country.choseCode')) !!}
+                {!! Form::text('code', null, ['class'=>'form-control']) !!}
             </div>
-            @error('password')
+            @error('code')
             <div class="alert alert-danger">
                 {{ $message }}
             </div>
             @enderror
-            <div class="gorm-group">
-                {!! Form::label(trans('admin.repeat.password')) !!}
-                {!! Form::password('password_confirmation', ['class'=>'form-control']) !!}
+            <div class="form-group">
+                {!! Form::label(trans('admin.country.mob')) !!}
+                {!! Form::text('mob', null, ['class'=>'form-control']) !!}
             </div>
-            <div class="gorm-group">
+            @error('mob')
+            <div class="alert alert-danger">
+                {{ $message }}
+            </div>
+            @enderror
+            <div class="form-group">
+                {!! Form::label(trans('admin.country.logo')) !!}
                 <br>
-                {!! Form::submit(trans('admin.edit.admin'), ['class'=>'btn btn-primary']) !!}
+                <img src="{{ checkImage($country->logo, 'imagesCountries') }}" alt="" width="100px" height="100px">
+                {!! Form::file('logo',  ['class'=>'form-control']) !!}
             </div>
+            @error('logo')
+            <div class="alert alert-danger">
+                {{ $message }}
+            </div>
+            @enderror
+            <div class="form-group">
+                {!! Form::submit(trans('admin.save'), ['class'=>'btn btn-success']) !!}
+            </div>
+            {!! Form::close() !!}
 
         </section>
     </div>

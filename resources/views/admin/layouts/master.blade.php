@@ -464,11 +464,20 @@
                 </li>
                 <li class="treeview {{ menuClassActive(3, 'triad') }}">
                     <a href="#">
-                        <i class="fa fa-align-justify"></i> <span>{{ trans('admin.triad') }}</span> <i class="fa fa-angle-left pull-right"></i>
+                        <i class="fa fa-trademark"></i> <span>{{ trans('admin.triad') }}</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ itemClassActive('triad.index') }}"> <a href="{{ route('triad.index') }}"><i class="fa fa-flag"></i>{{ trans('admin.triad') }}</a></li>
+                        <li class="{{ itemClassActive('triad.index') }}"> <a href="{{ route('triad.index') }}"><i class="fa fa-trademark"></i>{{ trans('admin.triad') }}</a></li>
                         <li class="{{ itemClassActive('triad.create') }}"><a href="{{ route('triad.create' ) }}"><i class="fa fa-plus"></i>{{ trans('admin.plus') }}</a></li>
+                    </ul>
+                </li>
+                <li class="treeview {{ menuClassActive(3, 'manufact') }}">
+                    <a href="#">
+                        <i class="fa fa-align-justify"></i> <span>{{ trans('admin.manufact') }}</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{ itemClassActive('manufact.index') }}"> <a href="{{ route('manufact.index') }}"><i class="fa fa-flag"></i>{{ trans('admin.manufact') }}</a></li>
+                        <li class="{{ itemClassActive('manufact.create') }}"><a href="{{ route('manufact.create' ) }}"><i class="fa fa-plus"></i>{{ trans('admin.plus') }}</a></li>
                     </ul>
                 </li>
 

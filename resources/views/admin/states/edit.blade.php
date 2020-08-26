@@ -19,7 +19,7 @@
                     {{ Session::get('success') }}
                 </div>
             @endif
-            <h3>{{ trans('admin.state.add') }}</h3>
+                <h3>{{ trans('admin.state.edit') }} {{ $state['stateName_' . LaravelLocalization::getCurrentLocale()] }}</h3>
             {!! Form::model($state, ['method'=>'PATCH', 'action'=>['StateController@update', $state->id]]) !!}
                 <div class="form-group">
                     {!! Form::label(trans('admin.state.name_ar')) !!}
