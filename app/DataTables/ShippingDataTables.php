@@ -2,13 +2,13 @@
 
 namespace App\DataTables;
 
-use App\Models\State;
+
+use App\Models\Shipping;
 use Illuminate\Support\Str;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Yajra\DataTables\Services\DataTable;
 
-class StateDataTables extends DataTable
-{
+class ShippingDataTables extends DataTable{
+
     /**
      * Build DataTable class.
      *
@@ -19,11 +19,11 @@ class StateDataTables extends DataTable
     {
         return datatables($query)
             ->addColumn('edit', function ($model){
-                $edit = '<a href="'. route('state.edit', $model->id) .'" class="btn btn-info">' . '<i class="fa fa-edit"></i>' . '</a>';
+                $edit = '<a href="'. route('shipping.edit', $model->id) .'" class="btn btn-info">' . '<i class="fa fa-edit"></i>' . '</a>';
                 return $edit;
             })
             ->addColumn('delete', function ($model){
-                $edit = "<form action='". route('state.destroy', $model->id) ."' method='POST'>".
+                $edit = "<form action='". route('shipping.destroy', $model->id) ."' method='POST'>".
                     "<input type='hidden' name='_method' value='DELETE'>". csrf_field() .
                     "<button type='submit' class='btn btn-danger'>". "<i class='fa fa-trash'></i>" ."</button>".
                     "</form>";
@@ -35,20 +35,17 @@ class StateDataTables extends DataTable
             ->editColumn('updated_at', function ($model){
                 return $model->updated_at->format('Y-m-d');
             })
+            ->addColumn('company_id', function ($model){
+                return $model->company()->where('id', $model->company_id)->first()->name;
+
+            })
             ->addColumn('check', function ($model){
                 return "<input class='checkedIds' name='ids[]' type='checkbox' value='" .  $model->id ."'>";
-            })
-            ->editColumn('country_id', function ($model){
-                return $model->city()->first()->country()->first()['countryName_' . LaravelLocalization::getCurrentLocale()];
-            })
-            ->editColumn('city_id', function ($model){
-                return $model->city()->first()['cityName_' . LaravelLocalization::getCurrentLocale()];
             })
             ->rawColumns([
                 'edit',
                 'delete',
                 'check',
-                'country_id'
             ]);
 
     }
@@ -62,7 +59,7 @@ class StateDataTables extends DataTable
     public function query()
     {
 //        return $model->newQuery();
-        return State::query();
+        return Shipping::query();
     }
 
     /**
@@ -82,9 +79,9 @@ class StateDataTables extends DataTable
                 'lengthMenu' => [[5,10, 25, 50, 100, -1], [5,10, 25, 50, trans('admin.all.record')]],
                 'buttons'    => [
                     [
-                        'text'      => '<i class="fa fa-plus"></i> '. trans('admin.state.add'),
+                        'text'      => '<i class="fa fa-plus"></i> '. trans('admin.plus'),
                         'action'=>'function(){
-                            window.location.href = "'. route('state.create') .'"
+                            window.location.href = "'. route('shipping.create') .'"
                         }',
                         'className' => 'btn btn-info mr-2',
                         'init'=>'function(api, node, config){
@@ -130,7 +127,7 @@ class StateDataTables extends DataTable
 
                 ],
                 'initComplete'=>"function () {
-            this.api().columns([ 2, 3, 4]).every(function () {
+            this.api().columns([ 2, 3]).every(function () {
                 var column = this;
                 var input = document.createElement(\"input\");
                 $(input).appendTo($(column.footer()).empty())
@@ -167,24 +164,19 @@ class StateDataTables extends DataTable
                 'title' => trans('admin.d_id'),
             ],
             [
-                'name'  => 'stateName_ar',
-                'data'  => 'stateName_ar',
-                'title' => trans('admin.state.name_ar'),
+                'name'  => 'name_ar',
+                'data'  => 'name_ar',
+                'title' => trans('admin.name_ar'),
             ],
             [
-                'name'  => 'stateName_en',
-                'data'  => 'stateName_en',
-                'title' => trans('admin.state.name_en'),
+                'name'  => 'name_en',
+                'data'  => 'name_en',
+                'title' => trans('admin.name_en'),
             ],
             [
-                'name'  => 'country_id',
-                'data'  => 'country_id',
-                'title' => trans('admin.country'),
-            ],
-            [
-                'name'  => 'city_id',
-                'data'  => 'city_id',
-                'title' => trans('admin.city'),
+                'name'  => 'company_id',
+                'data'  => 'company_id',
+                'title' => trans('admin.company.owner'),
             ],
             [
                 'name'  => 'created_at',
@@ -225,6 +217,6 @@ class StateDataTables extends DataTable
      */
     protected function filename()
     {
-        return 'StateDataTables' . date('YmdHis');
+        return 'ShippingDataTables' . date('YmdHis');
     }
 }

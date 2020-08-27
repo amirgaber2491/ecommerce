@@ -1,8 +1,24 @@
 @extends('admin.layouts.master')
-<?php
-$lat = !empty(old('lat')) ? old('lat') : '30.06277690073326';
-$lang = !empty(old('lang')) ? old('lang') : '31.269337654113762';
-?>
+
+@php
+    if (!empty(old('lat'))){
+        $lat =  old('lat');
+    }elseif ($manufact->lat != ''){
+        $lat = $manufact->lat;
+    }else{
+          $lat = '30.06277690073326';
+    }
+
+if (!empty(old('lang'))){
+    $lang =  old('lang');
+}elseif ($manufact->lang != ''){
+    $lang = $manufact->lang;
+}else{
+    $lang = '31.269337654113762';
+}
+
+@endphp
+
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -75,8 +91,8 @@ $lang = !empty(old('lang')) ? old('lang') : '31.269337654113762';
                 </div>
                 <div class="form-group">
                     <div id="us1" style="width: 100%; height: 400px;"></div>
-                    {!! Form::hidden('lat', null, ['id'=>'lat']) !!}
-                    {!! Form::hidden('lang', null, ['id'=>'lang']) !!}
+                    {!! Form::hidden('lat', $lat, ['id'=>'lat']) !!}
+                    {!! Form::hidden('lang', $lang, ['id'=>'lang']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label(trans('admin.facebook')) !!}

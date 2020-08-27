@@ -18,4 +18,10 @@ class Country extends Model
     {
         return $this->hasMany(City::class, 'country_id');
     }
+
+
+    public function malls()
+    {
+        return $this->hasMany(Mall::class, 'country_id');
+    }
 }

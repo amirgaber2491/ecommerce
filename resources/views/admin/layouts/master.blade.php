@@ -480,6 +480,42 @@
                         <li class="{{ itemClassActive('manufact.create') }}"><a href="{{ route('manufact.create' ) }}"><i class="fa fa-plus"></i>{{ trans('admin.plus') }}</a></li>
                     </ul>
                 </li>
+                <li class="treeview {{ menuClassActive(3, 'shipping') }}">
+                    <a href="#">
+                        <i class="fa fa-truck"></i> <span>{{ trans('admin.shipping') }}</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{ itemClassActive('shipping.index') }}"> <a href="{{ route('shipping.index') }}"><i class="fa fa-truck"></i>{{ trans('admin.shipping') }}</a></li>
+                        <li class="{{ itemClassActive('shipping.create') }}"><a href="{{ route('shipping.create' ) }}"><i class="fa fa-plus"></i>{{ trans('admin.plus') }}</a></li>
+                    </ul>
+                </li>
+                <li class="treeview {{ menuClassActive(3, 'mall') }}">
+                    <a href="#">
+                        <i class="fa fa-align-justify"></i> <span>{{ trans('admin.malls') }}</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{ itemClassActive('mall.index') }}"> <a href="{{ route('mall.index') }}"><i class="fa fa-flag"></i>{{ trans('admin.malls') }}</a></li>
+                        <li class="{{ itemClassActive('mall.create') }}"><a href="{{ route('mall.create' ) }}"><i class="fa fa-plus"></i>{{ trans('admin.plus') }}</a></li>
+                    </ul>
+                </li>
+                <li class="treeview {{ menuClassActive(3, 'color') }}">
+                    <a href="#">
+                        <i class="fa fa-paint-brush"></i> <span>{{ trans('admin.colors') }}</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{ itemClassActive('color.index') }}"> <a href="{{ route('color.index') }}"><i class="fa fa-paint-brush"></i>{{ trans('admin.colors') }}</a></li>
+                        <li class="{{ itemClassActive('color.create') }}"><a href="{{ route('color.create' ) }}"><i class="fa fa-plus"></i>{{ trans('admin.plus') }}</a></li>
+                    </ul>
+                </li>
+                <li class="treeview {{ menuClassActive(3, 'size') }}">
+                    <a href="#">
+                        <i class="fa fa-paint-brush"></i> <span>{{ trans('admin.sizes') }}</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{ itemClassActive('size.index') }}"> <a href="{{ route('size.index') }}"><i class="fa fa-paint-brush"></i>{{ trans('admin.sizes') }}</a></li>
+                        <li class="{{ itemClassActive('size.create') }}"><a href="{{ route('size.create' ) }}"><i class="fa fa-plus"></i>{{ trans('admin.plus') }}</a></li>
+                    </ul>
+                </li>
 
             </ul>
         </section>

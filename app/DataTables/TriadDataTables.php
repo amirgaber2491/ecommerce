@@ -2,13 +2,8 @@
 
 namespace App\DataTables;
 
-use App\Models\Country;
 use App\Models\Triad;
 use Illuminate\Support\Str;
-use Yajra\DataTables\Html\Button;
-use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class TriadDataTables extends DataTable

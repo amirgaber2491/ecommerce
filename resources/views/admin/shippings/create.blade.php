@@ -23,7 +23,7 @@ $lang = !empty(old('lang')) ? old('lang') : '31.269337654113762';
                 </div>
             @endif
             <h3>{{ trans('admin.triad.add') }}</h3>
-            {!! Form::open(['method'=>'POST', 'action'=>'ManufactController@store', 'files'=>true]) !!}
+            {!! Form::open(['method'=>'POST', 'action'=>'ShippingController@store', 'files'=>true]) !!}
                 <div class="form-group">
                     {!! Form::label(trans('admin.name_ar')) !!}
                     {!! Form::text('name_ar', null, ['class'=>'form-control']) !!}
@@ -43,62 +43,21 @@ $lang = !empty(old('lang')) ? old('lang') : '31.269337654113762';
                 </div>
                 @enderror
                 <div class="form-group">
-                    {!! Form::label(trans('admin.manufact.contact')) !!}
-                    {!! Form::text('contact_name', null, ['class'=>'form-control']) !!}
+                    {!! Form::label(trans('admin.company.owner')) !!}
+                    {!! Form::select('company_id', $company, null, ['class'=>'form-control', 'placeholder'=>'---------']) !!}
                 </div>
-                @error('contact_name')
+                @error('company_id')
                 <div class="alert alert-danger">
                     {{ $message }}
                 </div>
                 @enderror
-                <div class="form-group">
-                    {!! Form::label(trans('admin.email')) !!}
-                    {!! Form::email('email', null, ['class'=>'form-control']) !!}
-                </div>
-                @error('email')
-                <div class="alert alert-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-                <div class="form-group">
-                    {!! Form::label(trans('admin.mobile')) !!}
-                    {!! Form::text('mobile', null, ['class'=>'form-control']) !!}
-                </div>
-                @error('mobile')
-                <div class="alert alert-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-                <div class="form-group">
-                    {!! Form::label(trans('admin.address')) !!}
-                    {!! Form::text('address', null, ['class'=>'form-control address']) !!}
-                </div>
                 <div class="form-group">
                     <div id="us1" style="width: 100%; height: 400px;"></div>
                     {!! Form::hidden('lat', null, ['id'=>'lat']) !!}
                     {!! Form::hidden('lang', null, ['id'=>'lang']) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label(trans('admin.facebook')) !!}
-                    {!! Form::text('facebook', null, ['class'=>'form-control']) !!}
-                </div>
-                @error('facebook')
-                <div class="alert alert-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-                <div class="form-group">
-                    {!! Form::label(trans('admin.twitter')) !!}
-                    {!! Form::text('twitter', null, ['class'=>'form-control']) !!}
-                </div>
-                @error('twitter')
-                <div class="alert alert-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-
-                <div class="form-group">
-                    {!! Form::label(trans('admin.manufact.icon')) !!}
+                    {!! Form::label(trans('admin.shipping.icon')) !!}
                     {!! Form::file('icon',  ['class'=>'form-control']) !!}
                 </div>
                 @error('icon')
@@ -130,8 +89,7 @@ $lang = !empty(old('lang')) ? old('lang') : '31.269337654113762';
                 longitudeInput: $('#lang'),
                 // radiusInput: $('#us2-radius'),
                 locationNameInput: $('.address')
-            },
-            enableAutocomplete: true
+            }
 
         });
     </script>

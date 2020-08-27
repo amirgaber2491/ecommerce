@@ -2,13 +2,13 @@
 
 namespace App\DataTables;
 
-use App\Models\State;
+use App\Models\Mall;
 use Illuminate\Support\Str;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Yajra\DataTables\Services\DataTable;
 
-class StateDataTables extends DataTable
-{
+class MallDataTables extends DataTable{
+
     /**
      * Build DataTable class.
      *
@@ -19,11 +19,11 @@ class StateDataTables extends DataTable
     {
         return datatables($query)
             ->addColumn('edit', function ($model){
-                $edit = '<a href="'. route('state.edit', $model->id) .'" class="btn btn-info">' . '<i class="fa fa-edit"></i>' . '</a>';
+                $edit = '<a href="'. route('mall.edit', $model->id) .'" class="btn btn-info">' . '<i class="fa fa-edit"></i>' . '</a>';
                 return $edit;
             })
             ->addColumn('delete', function ($model){
-                $edit = "<form action='". route('state.destroy', $model->id) ."' method='POST'>".
+                $edit = "<form action='". route('mall.destroy', $model->id) ."' method='POST'>".
                     "<input type='hidden' name='_method' value='DELETE'>". csrf_field() .
                     "<button type='submit' class='btn btn-danger'>". "<i class='fa fa-trash'></i>" ."</button>".
                     "</form>";
@@ -35,20 +35,26 @@ class StateDataTables extends DataTable
             ->editColumn('updated_at', function ($model){
                 return $model->updated_at->format('Y-m-d');
             })
+            ->addColumn('country_id', function ($model){
+                return $model->country()->first()['countryName_' . LaravelLocalization::getCurrentLocale()];
+
+            })
+            ->addColumn('mobil', function ($model){
+                if ($model->mobil == ''){
+                    return '<span>' . trans('admin.no.info') . '</span>';
+                }else{
+                    return $model->mobil;
+                }
+
+            })
             ->addColumn('check', function ($model){
                 return "<input class='checkedIds' name='ids[]' type='checkbox' value='" .  $model->id ."'>";
-            })
-            ->editColumn('country_id', function ($model){
-                return $model->city()->first()->country()->first()['countryName_' . LaravelLocalization::getCurrentLocale()];
-            })
-            ->editColumn('city_id', function ($model){
-                return $model->city()->first()['cityName_' . LaravelLocalization::getCurrentLocale()];
             })
             ->rawColumns([
                 'edit',
                 'delete',
                 'check',
-                'country_id'
+                'mobil'
             ]);
 
     }
@@ -62,7 +68,7 @@ class StateDataTables extends DataTable
     public function query()
     {
 //        return $model->newQuery();
-        return State::query();
+        return Mall::query();
     }
 
     /**
@@ -82,9 +88,9 @@ class StateDataTables extends DataTable
                 'lengthMenu' => [[5,10, 25, 50, 100, -1], [5,10, 25, 50, trans('admin.all.record')]],
                 'buttons'    => [
                     [
-                        'text'      => '<i class="fa fa-plus"></i> '. trans('admin.state.add'),
+                        'text'      => '<i class="fa fa-plus"></i> '. trans('admin.plus'),
                         'action'=>'function(){
-                            window.location.href = "'. route('state.create') .'"
+                            window.location.href = "'. route('mall.create') .'"
                         }',
                         'className' => 'btn btn-info mr-2',
                         'init'=>'function(api, node, config){
@@ -167,24 +173,24 @@ class StateDataTables extends DataTable
                 'title' => trans('admin.d_id'),
             ],
             [
-                'name'  => 'stateName_ar',
-                'data'  => 'stateName_ar',
-                'title' => trans('admin.state.name_ar'),
+                'name'  => 'name_ar',
+                'data'  => 'name_ar',
+                'title' => trans('admin.name_ar'),
             ],
             [
-                'name'  => 'stateName_en',
-                'data'  => 'stateName_en',
-                'title' => trans('admin.state.name_en'),
+                'name'  => 'name_en',
+                'data'  => 'name_en',
+                'title' => trans('admin.name_en'),
+            ],
+            [
+                'name'  => 'mobil',
+                'data'  => 'mobil',
+                'title' => trans('admin.mobile'),
             ],
             [
                 'name'  => 'country_id',
                 'data'  => 'country_id',
                 'title' => trans('admin.country'),
-            ],
-            [
-                'name'  => 'city_id',
-                'data'  => 'city_id',
-                'title' => trans('admin.city'),
             ],
             [
                 'name'  => 'created_at',
@@ -225,6 +231,6 @@ class StateDataTables extends DataTable
      */
     protected function filename()
     {
-        return 'StateDataTables' . date('YmdHis');
+        return 'CountryDataTables_' . date('YmdHis');
     }
 }

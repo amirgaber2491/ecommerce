@@ -23,7 +23,7 @@ $lang = !empty(old('lang')) ? old('lang') : '31.269337654113762';
                 </div>
             @endif
             <h3>{{ trans('admin.triad.add') }}</h3>
-            {!! Form::open(['method'=>'POST', 'action'=>'ManufactController@store', 'files'=>true]) !!}
+            {!! Form::open(['method'=>'POST', 'action'=>'MallController@store', 'files'=>true]) !!}
                 <div class="form-group">
                     {!! Form::label(trans('admin.name_ar')) !!}
                     {!! Form::text('name_ar', null, ['class'=>'form-control']) !!}
@@ -43,7 +43,7 @@ $lang = !empty(old('lang')) ? old('lang') : '31.269337654113762';
                 </div>
                 @enderror
                 <div class="form-group">
-                    {!! Form::label(trans('admin.manufact.contact')) !!}
+                    {!! Form::label(trans('admin.mall.contact')) !!}
                     {!! Form::text('contact_name', null, ['class'=>'form-control']) !!}
                 </div>
                 @error('contact_name')
@@ -65,6 +65,15 @@ $lang = !empty(old('lang')) ? old('lang') : '31.269337654113762';
                     {!! Form::text('mobile', null, ['class'=>'form-control']) !!}
                 </div>
                 @error('mobile')
+                <div class="alert alert-danger">
+                    {{ $message }}
+                </div>
+                @enderror
+                <div class="form-group">
+                    {!! Form::label(trans('admin.country')) !!}
+                    {!! Form::select('country_id', $country, null, ['class'=>'form-control', 'placeholder'=>'-----']) !!}
+                </div>
+                @error('country_id')
                 <div class="alert alert-danger">
                     {{ $message }}
                 </div>
@@ -98,7 +107,7 @@ $lang = !empty(old('lang')) ? old('lang') : '31.269337654113762';
                 @enderror
 
                 <div class="form-group">
-                    {!! Form::label(trans('admin.manufact.icon')) !!}
+                    {!! Form::label(trans('admin.mall.icon')) !!}
                     {!! Form::file('icon',  ['class'=>'form-control']) !!}
                 </div>
                 @error('icon')

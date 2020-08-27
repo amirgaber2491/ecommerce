@@ -1,8 +1,23 @@
 @extends('admin.layouts.master')
-<?php
-$lat = !empty(old('lat')) ? old('lat') : '30.06277690073326';
-$lang = !empty(old('lang')) ? old('lang') : '31.269337654113762';
-?>
+@php
+    if (!empty(old('lat'))){
+        $lat = '1';
+        $lat =  old('lat');
+    }elseif ($mall->lat != ''){
+        $lat = $mall->lat;
+    }else{
+          $lat = '30.06277690073326';
+    }
+
+if (!empty(old('lang'))){
+    $lang =  old('lang');
+}elseif ($mall->lang != ''){
+    $lang = $mall->lang;
+}else{
+    $lang = '31.269337654113762';
+}
+
+@endphp
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -22,8 +37,8 @@ $lang = !empty(old('lang')) ? old('lang') : '31.269337654113762';
                     {{ Session::get('success') }}
                 </div>
             @endif
-            <h3>{{ trans('admin.triad.add') }}</h3>
-            {!! Form::open(['method'=>'POST', 'action'=>'ManufactController@store', 'files'=>true]) !!}
+            <h3>{{ trans('admin.mall.edit') }} {{ $mall['name_' . LaravelLocalization::getCurrentLocale()] }}</h3>
+            {!! Form::model($mall, ['method'=>'PATCH', 'action'=>['MallController@update', $mall->id], 'files'=>true]) !!}
                 <div class="form-group">
                     {!! Form::label(trans('admin.name_ar')) !!}
                     {!! Form::text('name_ar', null, ['class'=>'form-control']) !!}
@@ -43,7 +58,7 @@ $lang = !empty(old('lang')) ? old('lang') : '31.269337654113762';
                 </div>
                 @enderror
                 <div class="form-group">
-                    {!! Form::label(trans('admin.manufact.contact')) !!}
+                    {!! Form::label(trans('admin.mall.contact')) !!}
                     {!! Form::text('contact_name', null, ['class'=>'form-control']) !!}
                 </div>
                 @error('contact_name')
@@ -70,13 +85,22 @@ $lang = !empty(old('lang')) ? old('lang') : '31.269337654113762';
                 </div>
                 @enderror
                 <div class="form-group">
+                    {!! Form::label(trans('admin.country')) !!}
+                    {!! Form::select('country_id', $country, null, ['class'=>'form-control']) !!}
+                </div>
+                @error('country_id')
+                <div class="alert alert-danger">
+                    {{ $message }}
+                </div>
+                @enderror
+                <div class="form-group">
                     {!! Form::label(trans('admin.address')) !!}
                     {!! Form::text('address', null, ['class'=>'form-control address']) !!}
                 </div>
                 <div class="form-group">
                     <div id="us1" style="width: 100%; height: 400px;"></div>
-                    {!! Form::hidden('lat', null, ['id'=>'lat']) !!}
-                    {!! Form::hidden('lang', null, ['id'=>'lang']) !!}
+                    {!! Form::hidden('lat', $lat, ['id'=>'lat']) !!}
+                    {!! Form::hidden('lang', $lang, ['id'=>'lang']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label(trans('admin.facebook')) !!}
@@ -98,7 +122,9 @@ $lang = !empty(old('lang')) ? old('lang') : '31.269337654113762';
                 @enderror
 
                 <div class="form-group">
-                    {!! Form::label(trans('admin.manufact.icon')) !!}
+                    {!! Form::label(trans('admin.mall.icon')) !!}
+                    <br>
+                    <img src="{{ checkImage($mall->icon, 'imagesMalls') }}" alt="" width="100px" height="100px">
                     {!! Form::file('icon',  ['class'=>'form-control']) !!}
                 </div>
                 @error('icon')
@@ -134,6 +160,8 @@ $lang = !empty(old('lang')) ? old('lang') : '31.269337654113762';
             enableAutocomplete: true
 
         });
+        console.log({{ $lat }})
+        console.log({{ $lang }})
     </script>
 
 @stop

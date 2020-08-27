@@ -11,13 +11,15 @@
 |
 */
 
+use App\Models\Mall;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::get('test', function (){
-    return jsTree();
+    return Session::all();
 });
 
 Route::group(['prefix' => LaravelLocalization::setLocale(),
@@ -41,6 +43,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
             Route::delete('delete/multi/triads', 'TriadController@deleteMulti');
             Route::resource('manufact', 'ManufactController');
             Route::delete('delete/multi/manufacts', 'ManufactController@deleteMulti');
+            Route::resource('shipping', 'ShippingController');
+            Route::delete('delete/multi/shippings', 'ShippingController@deleteMulti');
+            Route::resource('mall', 'MallController');
+            Route::delete('delete/multi/malls', 'MallController@deleteMulti');
+            Route::resource('color', 'ColorController');
+            Route::delete('delete/multi/color', 'ColorController@deleteMulti');
 
 
 

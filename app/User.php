@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Shipping;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -36,4 +37,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function company()
+    {
+        return $this->hasOne(Shipping::class, 'company_id');
+    }
 }
